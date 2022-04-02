@@ -1,0 +1,8 @@
+{:paths ["src"]
+ :deps {org.clojure/clojurescript {:mvn/version "1.10.758"}
+        cljsjs/react {:mvn/version "17.0.2-0"}
+        cljsjs/react-dom {:mvn/version "17.0.2-0"}
+        reagent/reagent {:mvn/version "1.1.1"}
+        re-frame/re-frame {:mvn/version "1.2.0"}
+        day8.re-frame/http-fx {:mvn/version "0.2.4"}
+        cljs-ajax/cljs-ajax {:mvn/version "0.8.4"}}}

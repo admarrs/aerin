@@ -1,0 +1,12 @@
+**/.DS_Store
+.clj-kondo/
+.cpcache/
+.lsp/
+.shadow-cljs/
+
+db/pgdata/
+node_modules
+public/js/
+public/css/
+
+data.edn

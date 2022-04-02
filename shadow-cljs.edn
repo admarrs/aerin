@@ -1,0 +1,20 @@
+;; shadow-cljs configuration
+{:source-paths
+ ["src"]
+
+ :dependencies
+ [[reagent                           "1.1.1"]
+  [re-frame                          "1.2.0"]
+  [com.andrewmcveigh/cljs-time       "0.5.2"]
+  [com.cemerick/url                  "0.1.1"]
+  [day8.re-frame/http-fx             "0.2.4"]
+  [cljs-ajax                         "0.8.4"]
+  [metosin/reitit                    "0.5.13"]
+  [superstructor/re-frame-fetch-fx   "0.2.0"]]
+
+ :dev-http {9000 "public"}
+ :builds
+ {:app
+  {:target :browser
+   :modules {:main {:init-fn app.index/main!}}
+   }}}

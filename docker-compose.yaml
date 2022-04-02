@@ -1,0 +1,43 @@
+version: '3.3'
+services:
+  postgres:
+    image: postgis/postgis:13-3.2
+    ports:
+      - '5432:5432'
+    volumes:
+      - './db/pgdata:/var/lib/postgresql/data:z'
+      - "./db/src:/docker-entrypoint-initdb.d"
+    environment:
+      - POSTGRES_USER=${SUPER_USER}
+      - POSTGRES_PASSWORD=${SUPER_USER_PASSWORD}
+      - POSTGRES_DB=${DB_NAME}
+      - PGDATA=/var/lib/postgresql/data
+      # env vars useful for our sql scripts
+      - SUPER_USER=${SUPER_USER}
+      - SUPER_USER_PASSWORD=${SUPER_USER_PASSWORD}
+      - DB_NAME=${DB_NAME}
+      - DB_USER=${DB_USER}
+      - DB_PASS=${DB_PASS}
+      - DB_ANON_ROLE=${DB_ANON_ROLE}
+      - DEVELOPMENT=${DEVELOPMENT}
+      - JWT_SECRET=${JWT_SECRET}
+
+  postgrest:
+    image: postgrest/postgrest
+    ports:
+      - '8082:3000'
+    environment:
+      - PGRST_DB_URI=postgres://${DB_USER}:${DB_PASS}@${DB_HOST}:${DB_PORT}/${DB_NAME}
+      - PGRST_DB_SCHEMA=${DB_SCHEMA}
+      - PGRST_DB_ANON_ROLE=${DB_ANON_ROLE}
+      - PGRST_JWT_SECRET=${JWT_SECRET}
+      - PGRST_OPENAPI_SERVER_PROXY_URI=http://127.0.0.1:3000
+    depends_on:
+      - postgres
+
+  swagger:
+    image: swaggerapi/swagger-ui
+    ports:
+      - '8083:8080'
+    environment:
+      API_URL: http://localhost:8082/
